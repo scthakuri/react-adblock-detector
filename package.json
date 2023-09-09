@@ -2,9 +2,17 @@
     "name": "@scthakuri/adblock-detector",
     "version": "1.0.0",
     "description": "Adblock Detetcor for React",
-    "main": "index.tsx",
+    "main": "lib/index.js",
+    "types": "lib/index.d.ts",
+    "files": [
+        "lib/**/*"
+    ],
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "test",
+        "build": "tsc",
+        "prepare": "npm run build",
+        "version": "git add -A src",
+        "postversion": "git push && git push --tags"
     },
     "repository": {
         "type": "git",
@@ -21,5 +29,8 @@
     "bugs": {
         "url": "https://github.com/sureshchand12a/react-adblock-detector/issues"
     },
-    "homepage": "https://chpadblock.com"
+    "homepage": "https://chpadblock.com",
+    "devDependencies": {
+        "typescript": "^4.7.3"
+    }
 }
