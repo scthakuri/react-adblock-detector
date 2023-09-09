@@ -48,7 +48,7 @@ function App() {
     const [checking, setChecking] = React.useState(true);
     const [detected, setDetected] = React.useState(false);
 
-    useEffect(() => {
+    React.useEffect(() => {
         AdblockDetector.detect((detected) => {
             setChecking(false);
             setDetected(detected);
@@ -71,3 +71,26 @@ function App() {
 export default App;
 
 ```
+
+### Tested With
+
+- ☞ Adblock Plus
+- ☞ Adblock
+- ☞ Adguard
+- ☞ Adremover
+- ☞ Adblock for Chrome™
+- ☞ Brave
+- ☞ Ghostery
+- ☞ uBlocker
+- ☞ uBlock
+- ☞ Ultrablock
+- ☞ Privacy Badger
+- ☞ DuckDuckGo
+- ☞ Disconnect
+- ☞ Microsoft Edge AdBlock extension
+- ☞ Firefox Tracking Protection
+- ☞ uBlock Origin
+- ☞ Fair AdBlocker
+- ☞ Hola ad remover
+- ☞ Comodo AdBlocker
+- ☞ Opera Built-in AdBlock extension
