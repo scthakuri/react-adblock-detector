@@ -1,4 +1,4 @@
-# AdblockDetector
+# Ad Block Detector
 
 CHPADBLOCK is the adblock detector package for react. Our package detects most of the adblock extension such as ublock, adblock plus and many more.
 

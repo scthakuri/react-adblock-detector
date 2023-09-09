@@ -1,4 +1,4 @@
-export class AdblockDetetcor {
+export default class AdblockDetector {
 
     constructor() {}
 
@@ -17,8 +17,8 @@ export class AdblockDetetcor {
      * @returns boolean
      */
     private fairAdblock() : boolean {
-        let stndzStyle = document.getElementById('stndz-style');
-        return null !== stndzStyle;
+        let fairAdblockStyle = document.getElementById('stndz-style');
+        return null !== fairAdblockStyle;
     }
 
 
