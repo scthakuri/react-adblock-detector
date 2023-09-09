@@ -4,6 +4,7 @@
     "description": "Adblock Detetcor for React",
     "main": "lib/index.js",
     "types": "lib/index.d.ts",
+    "private" : false,
     "files": [
         "lib/**/*"
     ],
