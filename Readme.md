@@ -27,8 +27,47 @@ yarn add @scthakuri/adblock-detector
 
 import AdblockDetector from '@scthakuri/adblock-detector';
 
-const userHasAdblock = AdblockDetector.detect();  
-// true if user has it false if not
+AdblockDetector.detect((detected) => {
+    if( detected ){
+        // Adblock is detected
+    }else{
+        // Adblock is not detected
+    }
+});
+```
+
+## Example
+
+```javascript
+import './App.css';
+import React from 'react';
+import AdblockDetector from '@scthakuri/adblock-detector';
+
+function App() {
+
+    const [checking, setChecking] = React.useState(true);
+    const [detected, setDetected] = React.useState(false);
+
+    useEffect(() => {
+        AdblockDetector.detect((detected) => {
+            setChecking(false);
+            setDetected(detected);
+        });
+    })
+
+    return (
+        <div className="App">
+            <header className="App-header">
+                {
+                    checking ? (
+                        detected ? "Adblock Detected" : "No Adblock Detected"
+                    ) : "Checking for Adblocker..."
+                }
+            </header>
+        </div>
+    );
+}
+
+export default App;
 
 ```
-### That's it!
