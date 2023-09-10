@@ -1,6 +1,6 @@
 {
     "name": "@scthakuri/adblock-detector",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "description": "Adblock Detetcor for React",
     "main": "lib/index.js",
     "types": "lib/index.d.ts",
@@ -21,8 +21,8 @@
     },
     "keywords": [
         "adblock",
-        "adblock detetcor",
-        "react adblock detetcor",
+        "adblock detector",
+        "react adblock detector",
         "anti adblock"
     ],
     "author": "Suresh Chand <scthakuri12a@gmail.com>",
