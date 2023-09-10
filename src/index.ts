@@ -1,107 +1,129 @@
-export default class AdblockDetector {
+/**
+ * Check status of network connection
+ * 
+ * @returns boolean
+ */
+const is_connected = () => {
+    return window.navigator.onLine;
+}
 
-    constructor() {}
+/**
+ * Check For Fair Adblock Extension
+ * 
+ * @returns boolean
+ */
+const fairAdblockRequest = () => {
+    let fairAdblockStyle = document.getElementById('stndz-style');
+    return null !== fairAdblockStyle;
+}
 
-    /**
-     * Check status of network connection
-     * 
-     * @returns boolean
-     */
-    private is_connected() : boolean {
-        return window.navigator.onLine;
+/**
+ * Check for all adblock extension using googlead request
+ * 
+ * @param callback Required: Function that will receive the adblock detected or not
+ *
+ * @example
+ * 
+```javascript
+DetectByGoogleAd((enable) => {
+    //code
+});
+```
+ */
+export const DetectByGoogleAd = (callback: (enable: boolean) => void) => {
+    let head: HTMLElement = document.getElementsByTagName('head')[0];
+    let script:HTMLElement = document.createElement('script');
+    let done: boolean = false;
+
+    if (!is_connected()) {
+        callback(false);
+        return;
     }
 
-    /**
-     * Check For Fair Adblock Extension
-     * 
-     * @returns boolean
-     */
-    private fairAdblock() : boolean {
-        let fairAdblockStyle = document.getElementById('stndz-style');
-        return null !== fairAdblockStyle;
-    }
+    const reqURL = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
+    script.setAttribute("src", reqURL);
+    script.setAttribute("type", "text/javascript");
+    script.setAttribute("charset", "utf-8");
 
+    let alreadyDetectedByAdd = false;
+    script.onload = () => {
+        if ( !done ) {
+            done = true;
+            script.onload = null;
 
-    /**
-     * Check for all adblock extension using googlead request
-     * 
-     * @param callback Function
-     * @returns 
-     */
-    private googleAd(callback: (enable: boolean) => void): void {
-        let head = document.getElementsByTagName('head')[0];
-        let script:any = document.createElement('script');
-        let done:boolean = false;
-
-        if (!this.is_connected()) {
-            callback(false);
-            return;
+            if (typeof (window as any)?.adsbygoogle == 'undefined') {
+                callback(true);
+                alreadyDetectedByAdd = true;
+            }
+            script.parentNode?.removeChild(script);
         }
+    };
 
-        const reqURL = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
-        script.setAttribute("src", reqURL);
-        script.setAttribute("type", "text/javascript");
-        script.setAttribute("charset", "utf-8");
+    /** On Error. */
+    script.onerror = function () {
+        callback(true);
+    };
 
-        script.onload = script.onreadystatechange = function(){
-            if (!done && (!this.readyState || this.readyState === 'loaded' || this.readyState === 'complete')) {
-                done = true;
-                script.onload = script.onreadystatechange = null;
+    /** If Already Detectecd by adding scripts */
+    if (alreadyDetectedByAdd) {
+        return;
+    }
 
-                if (typeof (window as any).adsbygoogle == 'undefined') {
+    /** Async */
+    let callbacked = false;
+    const request = new XMLHttpRequest();
+    request.open('GET', reqURL, true);
+    request.onreadystatechange = () => {
+        if (request.status === 0 || (request.status >= 200 && request.status < 400)) {
+            if (
+                request.responseText.toLowerCase().indexOf("ublock") > -1
+                || request.responseText.toLowerCase().indexOf("height:1px") > -1
+            ) {
+                if (callbacked) {
                     callback(true);
-                } else {
-                    callback(false);
+                    return;
                 }
-
-                script.parentNode?.removeChild(script);
-            }
-        };
-
-        /** On Error. */
-        script.onerror = function () {
-            callback(true);
-        };
-
-        /** Async */
-        let callbacked = false;
-        const request = new XMLHttpRequest();
-        request.open('GET', reqURL, true);
-        request.onreadystatechange = function () {
-            if (this.status === 0 || (this.status >= 200 && this.status < 400)) {
-                if (
-                    this.responseText.toLowerCase().indexOf("ublock") > -1
-                    || this.responseText.toLowerCase().indexOf("height:1px") > -1
-                ) {
-                    if (callbacked) {
-                        callback(true);
-                    }
-                    callbacked = true;
-                }
-            }
-
-            if (!callbacked) {
-                callback(request.responseURL !== reqURL);
                 callbacked = true;
             }
-        };
-
-        request.send();
-        head.insertBefore(script, head.firstChild);
-    }
-
-    check(callback : (enable : boolean) => void){
-        if( this.fairAdblock() ){
-            callback(true);
-        }else{
-            this.googleAd(function(blocked){
-                if ( blocked ) {
-                    callback(true);
-                }else{
-                    callback(false);
-                }
-            });
         }
-    }
 
+        if (!callbacked) {
+            callback(request.responseURL !== reqURL);
+            return;
+        }
+    };
+
+    request.send();
+    head.insertBefore(script, head.firstChild);
+}
+
+/**
+ * Check for all adblock extension using googlead request
+ * 
+ * @param callback Required: Function that will receive the adblock detected or not
+ * 
+ * @example
+ * 
+```javascript
+DetectAdblock((enable) => {
+    //code
+});
+```
+ */
+export const DetectAdblock = (callback: (enable: boolean) => void) => {
+    
+    /** Check for Fair Adblock */
+    if (fairAdblockRequest()) {
+        callback(true);
+    } else {
+
+        /** Check Other Adblock Extensions with the help of googlead */
+        DetectByGoogleAd(function (blocked) {
+            if (blocked) {
+                callback(true);
+            } else {
+                callback(false);
+            }
+        });
+    }
 }
