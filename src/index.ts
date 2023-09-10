@@ -1,6 +1,8 @@
+import { WindowElementType } from "./types";
+
 /**
  * Check status of network connection
- * 
+ *
  * @returns boolean
  */
 const is_connected = () => {
@@ -9,7 +11,7 @@ const is_connected = () => {
 
 /**
  * Check For Fair Adblock Extension
- * 
+ *
  * @returns boolean
  */
 const fairAdblockRequest = () => {
@@ -19,11 +21,11 @@ const fairAdblockRequest = () => {
 
 /**
  * Check for all adblock extension using googlead request
- * 
+ *
  * @param callback Required: Function that will receive the adblock detected or not
  *
  * @example
- * 
+ *
 ```javascript
 DetectByGoogleAd((enable) => {
     //code
@@ -31,9 +33,10 @@ DetectByGoogleAd((enable) => {
 ```
  */
 export const DetectByGoogleAd = (callback: (enable: boolean) => void) => {
-    let head: HTMLElement = document.getElementsByTagName('head')[0];
-    let script:HTMLElement = document.createElement('script');
-    let done: boolean = false;
+    let head = document.getElementsByTagName('head')[0] as HTMLElement;
+    let script= document.createElement('script') as HTMLScriptElement;
+    let done= false;
+    let windowElement:WindowElementType
 
     if (!is_connected()) {
         callback(false);
@@ -51,7 +54,7 @@ export const DetectByGoogleAd = (callback: (enable: boolean) => void) => {
             done = true;
             script.onload = null;
 
-            if (typeof (window as any)?.adsbygoogle == 'undefined') {
+            if (windowElement?.adsbygoogle== 'undefined') {
                 callback(true);
                 alreadyDetectedByAdd = true;
             }
@@ -99,11 +102,11 @@ export const DetectByGoogleAd = (callback: (enable: boolean) => void) => {
 
 /**
  * Check for all adblock extension using googlead request
- * 
+ *
  * @param callback Required: Function that will receive the adblock detected or not
- * 
+ *
  * @example
- * 
+ *
 ```javascript
 DetectAdblock((enable) => {
     //code
@@ -111,7 +114,7 @@ DetectAdblock((enable) => {
 ```
  */
 export const DetectAdblock = (callback: (enable: boolean) => void) => {
-    
+
     /** Check for Fair Adblock */
     if (fairAdblockRequest()) {
         callback(true);
