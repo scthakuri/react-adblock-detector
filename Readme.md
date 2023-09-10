@@ -25,9 +25,9 @@ yarn add @scthakuri/adblock-detector
 ### Usage:
 ```javascript
 
-import AdblockDetector from '@scthakuri/adblock-detector';
+import { DetectAdblock } from '@scthakuri/adblock-detector';
 
-AdblockDetector.detect((detected) => {
+DetectAdblock((detected) => {
     if( detected ){
         // Adblock is detected
     }else{
@@ -39,29 +39,30 @@ AdblockDetector.detect((detected) => {
 ## Example
 
 ```javascript
+import { useState, useEffect } from 'react';
 import './App.css';
-import React from 'react';
-import AdblockDetector from '@scthakuri/adblock-detector';
+import { DetectAdblock } from '@scthakuri/adblock-detector'
 
 function App() {
 
-    const [checking, setChecking] = React.useState(true);
-    const [detected, setDetected] = React.useState(false);
+    const [startDetect, setStartDetect] = useState(true);
+    const [detected, setDetected] = useState(false);
 
-    React.useEffect(() => {
-        AdblockDetector.detect((detected) => {
-            setChecking(false);
-            setDetected(detected);
-        });
-    })
+    useEffect(() => {
+        if( startDetect ){
+            DetectAdblock((enable) => {
+                setStartDetect(false);
+                setDetected(enable);
+            });
+        }
+    }, [startDetect])
 
     return (
         <div className="App">
             <header className="App-header">
                 {
-                    checking ? (
-                        detected ? "Adblock Detected" : "No Adblock Detected"
-                    ) : "Checking for Adblocker..."
+                    startDetect ? "Detecting . . ." :
+                    detected ? "Detected" : "Not Detected"
                 }
             </header>
         </div>
