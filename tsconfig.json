@@ -1,10 +1,32 @@
 {
     "compilerOptions": {
-        "target": "es2015",
-        "module": "commonjs",
-        "declaration": true,
-        "outDir": "./lib",
-        "strict": true,
+        "target": "es5",
+		"lib": [
+			"dom",
+			"dom.iterable",
+			"esnext",
+			"es5",
+			"es6",
+			"es7",
+			"es2015",
+			"es2016",
+			"es2017",
+			"es2018"
+		],
+		"skipLibCheck": true,
+		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
+		"forceConsistentCasingInFileNames": true,
+		"module": "commonjs",
+		"moduleResolution": "node",
+		"jsx": "react",
+		"outDir": "./lib",
+		"noImplicitAny": false,
+		"noUnusedParameters": true,
+		"removeComments": true,
+		"sourceMap": true,
+		"declaration": true,
+		"experimentalDecorators": true
     },
     "include": [
         "src/*"

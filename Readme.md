@@ -2,15 +2,18 @@
 
 CHPADBLOCK is the adblock detector package for react. Our package detects most of the adblock extension such as ublock, adblock plus and many more.
 
-![npm version](https://img.shields.io/npm/v/@scthakuri/adblock-detector.svg)
-[![](https://data.jsdelivr.com/v1/package/npm/@scthakuri/adblock-detector/badge)](https://www.jsdelivr.com/package/npm/@scthakuri/adblock-detector)
+[![NPM](https://img.shields.io/npm/v/@scthakuri/adblock-detector.svg)](https://www.npmjs.com/package/@scthakuri/adblock-detector)
+[![NPM](https://img.shields.io/npm/dm/@scthakuri/adblock-detector)](https://www.npmjs.com/package/@scthakuri/adblock-detector)
+[![TypeScript](https://img.shields.io/badge/TypeScript-.d.ts-blue.svg)](https://github.com/scthakuri/react-adblock-detector/blob/master/lib/index.d.ts)
+[![Known Vulnerabilities](https://snyk.io/test/github/scthakuri/react-adblock-detector/badge.svg)](https://snyk.io/test/github/scthakuri/react-adblock-detector)
 
 ## Features
 
+- ✅ Adblock Detector Modal
 - ✅ Ease of use
-- 🔧 Well-tested
-- 📦 Lightweight
-- 📝 MIT license 
+- ✅ Well-tested
+- ✅ Lightweight
+- ✅ MIT license 
 
 ### Installation
 
@@ -41,7 +44,7 @@ DetectAdblock((detected) => {
 ```javascript
 import { useState, useEffect } from 'react';
 import './App.css';
-import { DetectAdblock } from '@scthakuri/adblock-detector'
+import DetectorModal, { DetectAdblock } from '@scthakuri/adblock-detector'
 
 function App() {
 
@@ -65,6 +68,8 @@ function App() {
                     detected ? "Detected" : "Not Detected"
                 }
             </header>
+
+            { detected && <DetectorModal /> }
         </div>
     );
 }

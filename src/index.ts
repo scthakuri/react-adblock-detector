@@ -1,4 +1,6 @@
+import DetectorModal from "./DetectorModal";
 import { WindowElementType } from "./types";
+import * as CryptoJS from 'crypto-js';
 
 /**
  * Check status of network connection
@@ -130,3 +132,15 @@ export const DetectAdblock = (callback: (enable: boolean) => void) => {
         });
     }
 }
+
+/**
+ * Used to decode the class
+ * 
+ * @param className string
+ * @return string
+ */
+export const decode_class = (className : string) => {
+    return CryptoJS.SHA256(className);
+} 
+
+export default DetectorModal;
