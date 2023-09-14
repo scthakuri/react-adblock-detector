@@ -54,7 +54,9 @@ Modal to show if adblock is detected
 - [`onModalClose`] \(Function\): Modal doesn't automatically close. You have to manually close the modal as show in example below
 - [`reloadBtnText`] \(String\): (Optional) Text for Reload Button
 
-## Example
+**Example**
+
+***[View Live Demo on Sandbox](https://codesandbox.io/s/async-hill-2gdkmp)***
 
 ```javascript
 import { useState, useEffect } from 'react';
