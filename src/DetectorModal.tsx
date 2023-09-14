@@ -64,7 +64,6 @@ DetectorModal.defaultProps = {
     show: false,
     title: "Adblock Detected!!!",
     message: "We have detected that you are using extensions to block ads. Please support us by disabling these ads blocker.",
-    hideOnBackdrop: false,
     reloadBtn: {
         text: "I've Disable Adblock"
     },
