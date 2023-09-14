@@ -12,9 +12,13 @@ CHPADBLOCK is the adblock detector package for react. Our package detects most o
 ## Features
 
 ✅ Adblock Detector Modal
+
 ✅ Ease of use
+
 ✅ Well-tested
+
 ✅ Lightweight
+
 ✅ MIT license 
 
 ### Installation
@@ -47,12 +51,12 @@ Modal to show if adblock is detected
 
 **Props**
 
-- `theme` \(String\): (optional) Any form of valid color code
-- [`title`] \(String\): (optional) Adblock Detected title
-- [`message`] \(String\): (optional) Adblock Detected title
-- [`closeBtn`] \(Boolean\): Whether to include close button on modal or not
+- [`theme`] \(String\): (`optional`) Any form of valid color code
+- [`title`] \(String\): (`optional`) Adblock Detected title
+- [`message`] \(String\): (`optional`) Adblock Detected title
+- [`closeBtn`] \(Boolean\): (`optional`) Whether to include close button on modal or not
 - [`onModalClose`] \(Function\): Modal doesn't automatically close. You have to manually close the modal as show in example below
-- [`reloadBtnText`] \(String\): (Optional) Text for Reload Button
+- [`reloadBtnText`] \(String\): (`Optional`) Text for Reload Button
 
 **Example**
 
