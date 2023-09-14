@@ -13,7 +13,7 @@ export default function DetectorModal(props: DetectorModalType): JSX.Element {
 
     const sessionKey = CryptoJS.SHA256((new Date().toDateString())).toString();
     const styles = generateStyles({
-        theme: "#009688",
+        theme: props.theme,
         sessionKey : sessionKey
     });
 
@@ -48,9 +48,7 @@ export default function DetectorModal(props: DetectorModalType): JSX.Element {
                             </div>
 
                             <div className={decode_class('footer', sessionKey)}>
-                                {
-                                    props?.reloadBtn && (props.reloadBtn.text ? <button className="action-btn-ok adblock_btn" onClick={reloadPage}>{props.reloadBtn.text}</button> : null)
-                                }
+                                <button className="action-btn-ok adblock_btn" onClick={reloadPage}>{props.reloadBtnText}</button>
                             </div>
                         </div>
                     </div>
@@ -64,9 +62,8 @@ DetectorModal.defaultProps = {
     show: false,
     title: "Adblock Detected!!!",
     message: "We have detected that you are using extensions to block ads. Please support us by disabling these ads blocker.",
-    reloadBtn: {
-        text: "I've Disable Adblock"
-    },
+    reloadBtnText :  "I've Disable Adblock",
     closeBtn: false,
-    onModalClose: () => { }
+    onModalClose: () => { },
+    theme : "#ff0000"
 }
