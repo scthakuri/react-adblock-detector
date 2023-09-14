@@ -146,18 +146,7 @@ const removeLeadingNumbers = (inputString) => {
  * @param className string
  * @return string
  */
-export const decode_class = (className: string) => {
-    let sessionKey = '';
-    if (typeof localStorage == 'object') {
-        const getSessionKey = localStorage.getItem("currentsession");
-        if (getSessionKey) {
-            sessionKey = getSessionKey;
-        } else {
-            sessionKey = (new Date()).toDateString();
-            localStorage.setItem("currentsession", sessionKey);
-        }
-    }
-
+export const decode_class = (className: string, sessionKey : string) => {
     const newClassName = className + sessionKey + className;
     return removeLeadingNumbers(CryptoJS.SHA256(newClassName).toString());
 }
