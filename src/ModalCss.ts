@@ -1,9 +1,10 @@
+import { decode_class } from ".";
 import { StylesPropsType } from "./types";
 
 export const generateStyles = ({
     theme = "#009688"
 } : StylesPropsType) => {
-    return `.modal {
+    return `.${decode_class('modal')} {
         position: fixed;
         z-index: 9999999999;
         left: 0;
@@ -37,7 +38,7 @@ export const generateStyles = ({
         }
     }
     
-    .modal .content {
+    .${decode_class('modal')} .${decode_class('content')} {
         background-color: #f5f5f5;
         margin: auto;
         padding: 0;
@@ -47,7 +48,7 @@ export const generateStyles = ({
         position: relative;
     }
     
-    .modal .closebtn {
+    .${decode_class('modal')} .${decode_class('closebtn')} {
         background-color: #fff;
         border: 1px solid #b5b5b5;
         top: 3%;
@@ -71,27 +72,27 @@ export const generateStyles = ({
         align-items: center;
     }
     
-    .modal .newtheme_container_content * {
+    .${decode_class('modal')} .${decode_class('newtheme_container_content')} * {
         color: #1b1919;
         text-align: center;
     }
     
-    .modal .newtheme_container_content{
+    .${decode_class('modal')} .${decode_class('newtheme_container_content')}{
         padding:20px !important;
     }
     
-    .modal .image-container {
+    .${decode_class('modal')} .image-container {
         width: 100px;
         height:100px;
         text-align: center;
         margin: auto;
     }
     
-    .modal .image-container .image {
+    .${decode_class('modal')} .image-container .image {
         position: relative;
     }
     
-    .modal .image-container .image i.exclametry_icon {
+    .${decode_class('modal')} .image-container .image i.exclametry_icon {
         position: absolute;
         right: 0;
         top: 8%;
@@ -108,7 +109,7 @@ export const generateStyles = ({
         font-weight: bold;
     }
     
-    .modal .image-container .image h3 {
+    .${decode_class('modal')} .image-container .image h3 {
         font-size: 30px;
         font-weight: 700;
         background: transparent;
@@ -122,13 +123,13 @@ export const generateStyles = ({
         margin-bottom: 1em;
     }
     
-    .modal .footer {
+    .${decode_class('modal')} .${decode_class('footer')} {
         position: relative;
         background: ${theme};
         padding:15px;
     }
     
-    .modal .footer button{
+    .${decode_class('modal')} .${decode_class('footer')} button{
         background: none;
         border: none;
         box-shadow: none;
@@ -138,31 +139,31 @@ export const generateStyles = ({
         cursor:pointer;
     }
     
-    .modal .footer button svg,
-    .modal .footer button svg path{
+    .${decode_class('modal')} .${decode_class('footer')} button svg,
+    .${decode_class('modal')} .${decode_class('footer')} button svg path{
         fill:#fff;
     }
     
-    .modal .footer button#howToBlock{
+    .${decode_class('modal')} .${decode_class('footer')} button#howToBlock{
         position: absolute;
         top: 10px;
         right: 10px;
     }
     
     @media only screen and (max-width:850px){
-        body .modal .content {
+        body .${decode_class('modal')} .${decode_class('content')} {
             width: 60%;
         }
     }
     
     @media only screen and (max-width:700px){
-        body .modal .content {
+        body .${decode_class('modal')} .${decode_class('content')} {
             width: 60%;
         }
     }
     
     @media only screen and (max-width:550px){
-        body .modal .content {
+        body .${decode_class('modal')} .${decode_class('content')} {
             width: 98%;
         }
     }`;

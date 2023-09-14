@@ -36,9 +36,9 @@ DetectByGoogleAd((enable) => {
  */
 export const DetectByGoogleAd = (callback: (enable: boolean) => void) => {
     let head = document.getElementsByTagName('head')[0] as HTMLElement;
-    let script= document.createElement('script') as HTMLScriptElement;
-    let done= false;
-    let windowElement:WindowElementType
+    let script = document.createElement('script') as HTMLScriptElement;
+    let done = false;
+    let windowElement: WindowElementType
 
     if (!is_connected()) {
         callback(false);
@@ -52,11 +52,11 @@ export const DetectByGoogleAd = (callback: (enable: boolean) => void) => {
 
     let alreadyDetectedByAdd = false;
     script.onload = () => {
-        if ( !done ) {
+        if (!done) {
             done = true;
             script.onload = null;
 
-            if (windowElement?.adsbygoogle== 'undefined') {
+            if (windowElement?.adsbygoogle == 'undefined') {
                 callback(true);
                 alreadyDetectedByAdd = true;
             }
@@ -133,14 +133,33 @@ export const DetectAdblock = (callback: (enable: boolean) => void) => {
     }
 }
 
+const removeLeadingNumbers = (inputString) => {
+    while (/^\d/.test(inputString)) {
+        inputString = inputString.slice(1);
+    }
+    return inputString;
+}
+
 /**
  * Used to decode the class
  * 
  * @param className string
  * @return string
  */
-export const decode_class = (className : string) => {
-    return CryptoJS.SHA256(className);
-} 
+export const decode_class = (className: string) => {
+    let sessionKey = '';
+    if (typeof localStorage == 'object') {
+        const getSessionKey = localStorage.getItem("currentsession");
+        if (getSessionKey) {
+            sessionKey = getSessionKey;
+        } else {
+            sessionKey = (new Date()).toDateString();
+            localStorage.setItem("currentsession", sessionKey);
+        }
+    }
+
+    const newClassName = className + sessionKey + className;
+    return removeLeadingNumbers(CryptoJS.SHA256(newClassName).toString());
+}
 
 export default DetectorModal;
