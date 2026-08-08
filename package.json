@@ -5,6 +5,9 @@
     "main": "lib/index.js",
     "types": "lib/index.d.ts",
     "private": false,
+    "publishConfig": {
+        "access": "public"
+    },
     "files": [
         "lib/**/*"
     ],
@@ -17,7 +20,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/sureshchand12a/react-adblock-detector.git"
+        "url": "git+https://github.com/scthakuri/react-adblock-detector.git"
     },
     "keywords": [
         "adblock",
@@ -28,7 +31,7 @@
     "author": "Suresh Chand <scthakuri12a@gmail.com>",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/sureshchand12a/react-adblock-detector/issues"
+        "url": "https://github.com/scthakuri/react-adblock-detector/issues"
     },
     "homepage": "https://chpadblock.com",
     "peerDependencies": {
