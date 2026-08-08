@@ -51,14 +51,9 @@ export const generateStyles = ({
     
     .${decodeClass('modal', sessionKey)} .${decodeClass('closebtn', sessionKey)} {
         background-color: #fff;
-        border: 1px solid #b5b5b5;
         top: 3%;
         right: 3%;
         z-index: 99999999;
-        background-image: url(https://toolkitspro.com/plugins/adblock/assets/img/close.svg);
-        background-repeat: no-repeat;
-        background-position: 46% 46%;
-        
         border-radius: 50%;
         height: 35px;
         width: 35px;
@@ -71,6 +66,12 @@ export const generateStyles = ({
         display: flex;
         justify-content: center;
         align-items: center;
+        color: #555;
+    }
+
+    .${decodeClass('modal', sessionKey)} .${decodeClass('closebtn', sessionKey)} svg {
+        width: 60%;
+        height: 60%;
     }
     
     .${decodeClass('modal', sessionKey)} .${decodeClass('newtheme_container_content', sessionKey)} * {
@@ -80,6 +81,23 @@ export const generateStyles = ({
     
     .${decodeClass('modal', sessionKey)} .${decodeClass('newtheme_container_content', sessionKey)}{
         padding:20px !important;
+    }
+
+    .${decodeClass('modal', sessionKey)} .${decodeClass('main_content', sessionKey)} {
+        margin-top: 15px;
+    }
+
+    .${decodeClass('modal', sessionKey)} .${decodeClass('adblock_title', sessionKey)} {
+        margin: 0 0 8px;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 1.3;
+    }
+
+    .${decodeClass('modal', sessionKey)} .${decodeClass('adblock_subtitle', sessionKey)} {
+        margin: 0;
+        font-size: 14px;
+        line-height: 1.5;
     }
     
     .${decodeClass('modal', sessionKey)} .image-container {
@@ -131,13 +149,21 @@ export const generateStyles = ({
     }
     
     .${decodeClass('modal', sessionKey)} .${decodeClass('footer', sessionKey)} button{
-        background: none;
+        background: rgba(255, 255, 255, 0.15);
         border: none;
         box-shadow: none;
         outline: none;
         font-size: 1rem;
+        font-weight: 600;
         color: #fff;
-        cursor:pointer;
+        cursor: pointer;
+        padding: 10px 24px;
+        border-radius: 4px;
+        transition: background-color 0.15s ease;
+    }
+
+    .${decodeClass('modal', sessionKey)} .${decodeClass('footer', sessionKey)} button:hover{
+        background: rgba(255, 255, 255, 0.25);
     }
     
     .${decodeClass('modal', sessionKey)} .${decodeClass('footer', sessionKey)} button svg,

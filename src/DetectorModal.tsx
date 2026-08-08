@@ -55,7 +55,14 @@ function DetectorModal({
                     <div className={classes.body}>
                         <div className={classes.theme}>
                             <div className={classes.body}>
-                                {closeBtn && <button onClick={onModalClose} className={classes.closebtn} type="button"></button>}
+                                {closeBtn && (
+                                    <button onClick={onModalClose} className={classes.closebtn} type="button" aria-label="Close">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+                                            <line x1="4" y1="4" x2="20" y2="20" />
+                                            <line x1="20" y1="4" x2="4" y2="20" />
+                                        </svg>
+                                    </button>
+                                )}
 
                                 <div className={classes.newtheme_container_content}>
                                     <div className="wrapper">
