@@ -4,7 +4,7 @@ import { StylesPropsType } from "./types";
 export const generateStyles = ({
     theme = "#009688",
     sessionKey
-} : StylesPropsType) => {
+}: StylesPropsType) => {
     return `.${decodeClass('modal', sessionKey)} {
         position: fixed;
         z-index: 9999999999;
@@ -152,21 +152,12 @@ export const generateStyles = ({
     }
 
     .${decodeClass('modal', sessionKey)} .${decodeClass('footer', sessionKey)} .${decodeClass('action_btn', sessionKey)}{
-        background-color: rgba(255, 255, 255, 0.15);
-        border: 1px solid rgba(255, 255, 255, 0.4);
         box-shadow: none;
         outline: none;
         font-size: 1rem;
         font-weight: 600;
         color: #fff;
         cursor: pointer;
-        padding: 10px 24px;
-        border-radius: 4px;
-        transition: background-color 0.15s ease;
-    }
-
-    .${decodeClass('modal', sessionKey)} .${decodeClass('footer', sessionKey)} .${decodeClass('action_btn', sessionKey)}:hover{
-        background-color: rgba(255, 255, 255, 0.25);
     }
     
     .${decodeClass('modal', sessionKey)} .${decodeClass('footer', sessionKey)} button svg,
