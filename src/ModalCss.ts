@@ -151,7 +151,7 @@ export const generateStyles = ({
         align-items: center;
     }
 
-    .${decodeClass('modal', sessionKey)} .${decodeClass('footer', sessionKey)} button.action-btn-ok.adblock_btn{
+    .${decodeClass('modal', sessionKey)} .${decodeClass('footer', sessionKey)} .${decodeClass('action_btn', sessionKey)}{
         background-color: rgba(255, 255, 255, 0.15);
         border: 1px solid rgba(255, 255, 255, 0.4);
         box-shadow: none;
@@ -165,7 +165,7 @@ export const generateStyles = ({
         transition: background-color 0.15s ease;
     }
 
-    .${decodeClass('modal', sessionKey)} .${decodeClass('footer', sessionKey)} button.action-btn-ok.adblock_btn:hover{
+    .${decodeClass('modal', sessionKey)} .${decodeClass('footer', sessionKey)} .${decodeClass('action_btn', sessionKey)}:hover{
         background-color: rgba(255, 255, 255, 0.25);
     }
     

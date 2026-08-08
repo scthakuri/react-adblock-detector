@@ -39,6 +39,7 @@ function DetectorModal({
         adblock_title: decodeClass('adblock_title', sessionKey),
         adblock_subtitle: decodeClass('adblock_subtitle', sessionKey),
         footer: decodeClass('footer', sessionKey),
+        action_btn: decodeClass('action_btn', sessionKey),
     }), [sessionKey]);
 
     const styles = useMemo(() => generateStyles({
@@ -84,7 +85,7 @@ function DetectorModal({
                             </div>
 
                             <div className={classes.footer}>
-                                <button className="action-btn-ok adblock_btn" onClick={reloadPage}>{reloadBtnText}</button>
+                                <button className={classes.action_btn} onClick={reloadPage}>{reloadBtnText}</button>
                             </div>
                         </div>
                     </div>
