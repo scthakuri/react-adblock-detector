@@ -145,12 +145,15 @@ export const generateStyles = ({
     .${decodeClass('modal', sessionKey)} .${decodeClass('footer', sessionKey)} {
         position: relative;
         background: ${theme};
-        padding:15px;
+        padding: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
-    
-    .${decodeClass('modal', sessionKey)} .${decodeClass('footer', sessionKey)} button{
-        background: rgba(255, 255, 255, 0.15);
-        border: none;
+
+    .${decodeClass('modal', sessionKey)} .${decodeClass('footer', sessionKey)} button.action-btn-ok.adblock_btn{
+        background-color: rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.4);
         box-shadow: none;
         outline: none;
         font-size: 1rem;
@@ -162,8 +165,8 @@ export const generateStyles = ({
         transition: background-color 0.15s ease;
     }
 
-    .${decodeClass('modal', sessionKey)} .${decodeClass('footer', sessionKey)} button:hover{
-        background: rgba(255, 255, 255, 0.25);
+    .${decodeClass('modal', sessionKey)} .${decodeClass('footer', sessionKey)} button.action-btn-ok.adblock_btn:hover{
+        background-color: rgba(255, 255, 255, 0.25);
     }
     
     .${decodeClass('modal', sessionKey)} .${decodeClass('footer', sessionKey)} button svg,
