@@ -1,123 +1,161 @@
-# Ad Block Detector
+# @scthakuri/adblock-detector
 
-CHPADBLOCK is the adblock detector package for react. Our package detects most of the adblock extension such as ublock, adblock plus and many more.
-
-**[View Live Demo on Sandbox](https://codesandbox.io/s/async-hill-2gdkmp)**
+Lightweight, dependency-free adblock detector for React. Detects most adblock extensions (uBlock Origin, AdBlock Plus, AdGuard, Brave's built-in blocker, and more) and gives you a ready-made, customizable modal to prompt visitors to disable them.
 
 [![NPM](https://img.shields.io/npm/v/@scthakuri/adblock-detector.svg)](https://www.npmjs.com/package/@scthakuri/adblock-detector)
-[![NPM](https://img.shields.io/npm/dm/@scthakuri/adblock-detector)](https://www.npmjs.com/package/@scthakuri/adblock-detector)
+[![NPM Downloads](https://img.shields.io/npm/dm/@scthakuri/adblock-detector)](https://www.npmjs.com/package/@scthakuri/adblock-detector)
 [![TypeScript](https://img.shields.io/badge/TypeScript-.d.ts-blue.svg)](https://github.com/scthakuri/react-adblock-detector/blob/master/lib/index.d.ts)
 [![Known Vulnerabilities](https://snyk.io/test/github/scthakuri/react-adblock-detector/badge.svg)](https://snyk.io/test/github/scthakuri/react-adblock-detector)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+## Demo
+
+**[Live sandbox: try it yourself](https://codesandbox.io/s/async-hill-2gdkmp)**
+
+Open the sandbox, enable an adblock extension in your browser, then reload the preview pane. The detector modal appears live.
 
 ## Features
 
-✅ Adblock Detector Modal
+- ✅ **Zero runtime dependencies**. No crypto-js, no polyfills, nothing else installed alongside React.
+- ✅ Detects most popular adblock extensions (see [Tested With](#tested-with))
+- ✅ Ships a ready-made, themeable modal component, or use the raw detection function and build your own UI
+- ✅ Fully typed (`.d.ts` included, no `@types` package needed)
+- ✅ Small footprint. No bundled crypto library; class-name obfuscation uses a tiny inline hash instead.
 
-✅ Ease of use
-
-✅ Well-tested
-
-✅ Lightweight
-
-✅ MIT license 
-
-### Installation
+## Installation
 
 ```bash
-# Via npm:
+# npm
 npm i @scthakuri/adblock-detector
 
-# Via yarn:
+# yarn
 yarn add @scthakuri/adblock-detector
+
+# pnpm
+pnpm add @scthakuri/adblock-detector
 ```
 
-### Usage:
-```javascript
+Requires React ≥16.8 (uses hooks internally).
 
-import { DetectAdblock } from '@scthakuri/adblock-detector';
+## Quick Start
 
-DetectAdblock((detected) => {
-    if( detected ){
-        // Adblock is detected
-    }else{
-        // Adblock is not detected
-    }
-});
-```
+Simplest usage, detects and shows the modal automatically:
 
-### `<DetectorModal>`
-
-Modal to show if adblock is detected
-
-**Props**
-
-- [`theme`] \(String\): (`optional`) Any form of valid color code
-- [`title`] \(String\): (`optional`) Adblock Detected title
-- [`message`] \(String\): (`optional`) Adblock Detected title
-- [`closeBtn`] \(Boolean\): (`optional`) Whether to include close button on modal or not
-- [`onModalClose`] \(Function\): Modal doesn't automatically close. You have to manually close the modal as show in example below
-- [`reloadBtnText`] \(String\): (`Optional`) Text for Reload Button
-
-**Example**
-
-***[View Live Demo on Sandbox](https://codesandbox.io/s/async-hill-2gdkmp)***
-
-```javascript
-import { useState, useEffect } from 'react';
-import './App.css';
-import DetectorModal, { DetectAdblock } from '@scthakuri/adblock-detector'
+```tsx
+import { AutoDetectorModal } from '@scthakuri/adblock-detector';
 
 function App() {
-
-    const [startDetect, setStartDetect] = useState(true);
-    const [detected, setDetected] = useState(false);
-    const [showModal, setShowModal] = useState(false);
-
-    useEffect(() => {
-        if( startDetect ){
-            DetectAdblock((enable) => {
-                setStartDetect(false);
-                setDetected(enable);
-
-                if( enable ){
-                    setShowModal(true);
-                }
-            });
-        }
-    }, [startDetect])
-
-    return (
-        <div className="App">
-            <div style={{
-                flex : 1,
-                display : "flex",
-                justifyContent : "center",
-                alignItems:"center",
-                height : "100vh",
-                fontSize : "2rem",
-                fontWeight:"bold"
-            }}>
-                {
-                    startDetect ? "Detecting . . ." :
-                    detected ? "Detected" : "Not Detected"
-                }
-            </div>
-
-            {
-                showModal && <DetectorModal
-                    onModalClose={() => setShowModal(false)}
-                    closeBtn
-                />
-            }
-        </div>
-    );
+  return (
+    <div className="App">
+      <AutoDetectorModal closeBtn />
+    </div>
+  );
 }
 
 export default App;
-
 ```
 
-### Tested With
+If you need to control visibility yourself (custom trigger logic, analytics on detection, etc.), use the hook and `DetectorModal` directly:
+
+```tsx
+import { useState } from 'react';
+import DetectorModal, { useAdblockDetector } from '@scthakuri/adblock-detector';
+
+function App() {
+  const { detected } = useAdblockDetector();
+  const [dismissed, setDismissed] = useState(false);
+
+  return (
+    <div className="App">
+      {detected && !dismissed && (
+        <DetectorModal
+          closeBtn
+          onModalClose={() => setDismissed(true)}
+        />
+      )}
+    </div>
+  );
+}
+
+export default App;
+```
+
+## API Reference
+
+### `<AutoDetectorModal />`
+
+Combines `useAdblockDetector` and `DetectorModal` into one drop-in component: detects on mount, renders nothing while loading or when no adblocker is found, and shows the modal automatically otherwise. Dismissing it (via `closeBtn`) hides it for the rest of the session. Accepts the same props as `DetectorModal` below, minus needing `onModalClose` (it's handled internally, though you can still pass one for a side effect on close).
+
+```tsx
+<AutoDetectorModal closeBtn theme="#4f46e5" />
+```
+
+### `useAdblockDetector()`
+
+React hook: the recommended way to consume detection state. Runs the check once on mount and is unmount-safe (won't call `setState` after the component using it is gone).
+
+| Returns | Type | Description |
+|---|---|---|
+| `detected` | `boolean` | Whether an adblocker was detected. |
+| `loading` | `boolean` | `true` until the check resolves. |
+
+```tsx
+const { detected, loading } = useAdblockDetector();
+```
+
+### `detectAdblock(callback)`
+
+Imperative version of the same check, for use outside React (vanilla JS, class components, one-off checks). `useAdblockDetector` is built on top of this.
+
+| Param | Type | Description |
+|---|---|---|
+| `callback` | `(detected: boolean) => void` | Called once with the detection result. |
+
+```tsx
+import { detectAdblock } from '@scthakuri/adblock-detector';
+
+detectAdblock((detected) => {
+  if (detected) {
+    // an adblocker is active
+  }
+});
+```
+
+### `detectByGoogleAd(callback)`
+
+Lower-level probe used internally by `detectAdblock`. Checks connectivity, requests a real Google Ads script, and inspects both the network response and whether the global it sets survives. Exported in case you want to compose your own detection flow (e.g. skip the fair-adblock check, or add your own probes alongside it).
+
+| Param | Type | Description |
+|---|---|---|
+| `callback` | `(detected: boolean) => void` | Called once with the detection result. |
+
+> `DetectAdblock` / `DetectByGoogleAd` (PascalCase) remain exported as deprecated aliases for existing code. New code should use the camelCase names above.
+
+### `<DetectorModal />`
+
+Pre-built modal shown when an adblocker is detected. The component always renders its markup, so mount/unmount it based on your own detection state (see Quick Start above).
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `theme` | `string` | `"#ff0000"` | Any valid CSS color. Accents the icon, border, and footer. |
+| `title` | `string` | `"Adblock Detected!!!"` | Modal heading. |
+| `message` | `string` | _(default message)_ | Modal body text. |
+| `reloadBtnText` | `string` | `"I've Disable Adblock"` | Text for the reload button. |
+| `closeBtn` | `boolean` | `false` | Show a close (×) button. |
+| `onModalClose` | `() => void` | `() => {}` | Called when the close button is clicked. The modal does **not** unmount itself; call this to update your own state. |
+
+```tsx
+<DetectorModal
+  theme="#4f46e5"
+  title="Please disable your ad blocker"
+  message="This site is supported by ads. Please whitelist us to continue."
+  reloadBtnText="Refresh page"
+  closeBtn
+  onModalClose={() => setDismissed(true)}
+/>
+```
+
+## Tested With
 
 - ☞ Adblock Plus
 - ☞ Adblock
@@ -139,3 +177,26 @@ export default App;
 - ☞ Hola ad remover
 - ☞ Comodo AdBlocker
 - ☞ Opera Built-in AdBlock extension
+
+## Local Development
+
+```bash
+git clone https://github.com/scthakuri/react-adblock-detector.git
+cd react-adblock-detector
+npm install       # also runs the build via the `prepare` script
+npm run build      # compile src/ -> lib/
+```
+
+Type-check without emitting:
+
+```bash
+npx tsc --noEmit
+```
+
+## Contributing
+
+Issues and PRs welcome at [github.com/scthakuri/react-adblock-detector](https://github.com/scthakuri/react-adblock-detector/issues).
+
+## License
+
+MIT © [Suresh Chand](https://sureshchand.com.np)

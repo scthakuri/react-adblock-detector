@@ -1,11 +1,11 @@
-import { decode_class } from ".";
+import { decodeClass } from "./classHash";
 import { StylesPropsType } from "./types";
 
 export const generateStyles = ({
     theme = "#009688",
     sessionKey
 } : StylesPropsType) => {
-    return `.${decode_class('modal', sessionKey)} {
+    return `.${decodeClass('modal', sessionKey)} {
         position: fixed;
         z-index: 9999999999;
         left: 0;
@@ -39,7 +39,7 @@ export const generateStyles = ({
         }
     }
     
-    .${decode_class('modal', sessionKey)} .${decode_class('content', sessionKey)} {
+    .${decodeClass('modal', sessionKey)} .${decodeClass('content', sessionKey)} {
         background-color: #f5f5f5;
         margin: auto;
         padding: 0;
@@ -49,7 +49,7 @@ export const generateStyles = ({
         position: relative;
     }
     
-    .${decode_class('modal', sessionKey)} .${decode_class('closebtn', sessionKey)} {
+    .${decodeClass('modal', sessionKey)} .${decodeClass('closebtn', sessionKey)} {
         background-color: #fff;
         border: 1px solid #b5b5b5;
         top: 3%;
@@ -73,27 +73,27 @@ export const generateStyles = ({
         align-items: center;
     }
     
-    .${decode_class('modal', sessionKey)} .${decode_class('newtheme_container_content', sessionKey)} * {
+    .${decodeClass('modal', sessionKey)} .${decodeClass('newtheme_container_content', sessionKey)} * {
         color: #1b1919;
         text-align: center;
     }
     
-    .${decode_class('modal', sessionKey)} .${decode_class('newtheme_container_content', sessionKey)}{
+    .${decodeClass('modal', sessionKey)} .${decodeClass('newtheme_container_content', sessionKey)}{
         padding:20px !important;
     }
     
-    .${decode_class('modal', sessionKey)} .image-container {
+    .${decodeClass('modal', sessionKey)} .image-container {
         width: 100px;
         height:100px;
         text-align: center;
         margin: auto;
     }
     
-    .${decode_class('modal', sessionKey)} .image-container .image {
+    .${decodeClass('modal', sessionKey)} .image-container .image {
         position: relative;
     }
     
-    .${decode_class('modal', sessionKey)} .image-container .image i.exclametry_icon {
+    .${decodeClass('modal', sessionKey)} .image-container .image i.exclametry_icon {
         position: absolute;
         right: 0;
         top: 8%;
@@ -110,7 +110,7 @@ export const generateStyles = ({
         font-weight: bold;
     }
     
-    .${decode_class('modal', sessionKey)} .image-container .image h3 {
+    .${decodeClass('modal', sessionKey)} .image-container .image h3 {
         font-size: 30px;
         font-weight: 700;
         background: transparent;
@@ -124,13 +124,13 @@ export const generateStyles = ({
         margin-bottom: 1em;
     }
     
-    .${decode_class('modal', sessionKey)} .${decode_class('footer', sessionKey)} {
+    .${decodeClass('modal', sessionKey)} .${decodeClass('footer', sessionKey)} {
         position: relative;
         background: ${theme};
         padding:15px;
     }
     
-    .${decode_class('modal', sessionKey)} .${decode_class('footer', sessionKey)} button{
+    .${decodeClass('modal', sessionKey)} .${decodeClass('footer', sessionKey)} button{
         background: none;
         border: none;
         box-shadow: none;
@@ -140,31 +140,31 @@ export const generateStyles = ({
         cursor:pointer;
     }
     
-    .${decode_class('modal', sessionKey)} .${decode_class('footer', sessionKey)} button svg,
-    .${decode_class('modal', sessionKey)} .${decode_class('footer', sessionKey)} button svg path{
+    .${decodeClass('modal', sessionKey)} .${decodeClass('footer', sessionKey)} button svg,
+    .${decodeClass('modal', sessionKey)} .${decodeClass('footer', sessionKey)} button svg path{
         fill:#fff;
     }
     
-    .${decode_class('modal', sessionKey)} .${decode_class('footer', sessionKey)} button#howToBlock{
+    .${decodeClass('modal', sessionKey)} .${decodeClass('footer', sessionKey)} button#howToBlock{
         position: absolute;
         top: 10px;
         right: 10px;
     }
     
     @media only screen and (max-width:850px){
-        body .${decode_class('modal', sessionKey)} .${decode_class('content', sessionKey)} {
+        body .${decodeClass('modal', sessionKey)} .${decodeClass('content', sessionKey)} {
             width: 60%;
         }
     }
     
     @media only screen and (max-width:700px){
-        body .${decode_class('modal', sessionKey)} .${decode_class('content', sessionKey)} {
+        body .${decodeClass('modal', sessionKey)} .${decodeClass('content', sessionKey)} {
             width: 60%;
         }
     }
     
     @media only screen and (max-width:550px){
-        body .${decode_class('modal', sessionKey)} .${decode_class('content', sessionKey)} {
+        body .${decodeClass('modal', sessionKey)} .${decodeClass('content', sessionKey)} {
             width: 98%;
         }
     }`;

@@ -1,34 +1,63 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import { DetectorModalType } from './types'
 import { generateStyles } from './ModalCss'
-import { decode_class } from '.';
-import * as CryptoJS from 'crypto-js';
+import { decodeClass } from './classHash'
 
-export default function DetectorModal(props: DetectorModalType): JSX.Element {
+const noop = () => { };
 
-    const reloadPage = (event: any) => {
+/**
+ * Modal shown when an adblocker is detected. Always renders its markup —
+ * mount/unmount it yourself based on detection state (see `useAdblockDetector`).
+ * Wrapped in `React.memo`: props are almost always static per-mount, so this
+ * skips re-rendering the whole tree (styles string included) when a parent
+ * re-renders for unrelated state changes.
+ */
+function DetectorModal({
+    theme = "#ff0000",
+    title = "Adblock Detected!!!",
+    message = "We have detected that you are using extensions to block ads. Please support us by disabling these ads blocker.",
+    reloadBtnText = "I've Disable Adblock",
+    closeBtn = false,
+    onModalClose = noop,
+}: DetectorModalType): JSX.Element {
+
+    const reloadPage = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
         window.location.reload();
-    };
+    }, []);
 
-    const sessionKey = CryptoJS.SHA256((new Date().toDateString())).toString();
-    const styles = generateStyles({
-        theme: props.theme,
-        sessionKey : sessionKey
-    });
+    const sessionKey = useMemo(() => new Date().toDateString(), []);
+
+    const classes = useMemo(() => ({
+        modal: decodeClass('modal', sessionKey),
+        content: decodeClass('content', sessionKey),
+        body: decodeClass('body', sessionKey),
+        theme: decodeClass('theme', sessionKey),
+        closebtn: decodeClass('closebtn', sessionKey),
+        newtheme_container_content: decodeClass('newtheme_container_content', sessionKey),
+        main_content: decodeClass('main_content', sessionKey),
+        adblock_title: decodeClass('adblock_title', sessionKey),
+        adblock_subtitle: decodeClass('adblock_subtitle', sessionKey),
+        footer: decodeClass('footer', sessionKey),
+    }), [sessionKey]);
+
+    const styles = useMemo(() => generateStyles({
+        theme,
+        sessionKey,
+    }), [theme, sessionKey]);
 
     return (
         <>
             <style>{styles}</style>
 
-            <div className={decode_class('modal', sessionKey)}>
-                <div className={`${decode_class('content', sessionKey)} fadeInDown`}>
-                    <div className={decode_class('body', sessionKey)}>
-                        <div className={decode_class('theme', sessionKey)}>
-                            <div className={decode_class('body', sessionKey)}>
-                                {props?.closeBtn && <button onClick={props.onModalClose} className={decode_class('closebtn', sessionKey)} type="button"></button>}
+            <div className={classes.modal}>
+                <div className={`${classes.content} fadeInDown`}>
+                    <div className={classes.body}>
+                        <div className={classes.theme}>
+                            <div className={classes.body}>
+                                {closeBtn && <button onClick={onModalClose} className={classes.closebtn} type="button"></button>}
 
-                                <div className={decode_class('newtheme_container_content', sessionKey)}>
+                                <div className={classes.newtheme_container_content}>
                                     <div className="wrapper">
                                         <div className="adblock_new_icon">
                                             <div className="image-container">
@@ -40,15 +69,15 @@ export default function DetectorModal(props: DetectorModalType): JSX.Element {
                                         </div>
                                     </div>
 
-                                    <div className={decode_class('main_content', sessionKey)}>
-                                        <h4 className={decode_class('adblock_title', sessionKey)}>{props.title}</h4>
-                                        <div className={decode_class('adblock_subtitle', sessionKey)}>{props.message}</div>
+                                    <div className={classes.main_content}>
+                                        <h4 className={classes.adblock_title}>{title}</h4>
+                                        <div className={classes.adblock_subtitle}>{message}</div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div className={decode_class('footer', sessionKey)}>
-                                <button className="action-btn-ok adblock_btn" onClick={reloadPage}>{props.reloadBtnText}</button>
+                            <div className={classes.footer}>
+                                <button className="action-btn-ok adblock_btn" onClick={reloadPage}>{reloadBtnText}</button>
                             </div>
                         </div>
                     </div>
@@ -58,12 +87,4 @@ export default function DetectorModal(props: DetectorModalType): JSX.Element {
     )
 }
 
-DetectorModal.defaultProps = {
-    show: false,
-    title: "Adblock Detected!!!",
-    message: "We have detected that you are using extensions to block ads. Please support us by disabling these ads blocker.",
-    reloadBtnText :  "I've Disable Adblock",
-    closeBtn: false,
-    onModalClose: () => { },
-    theme : "#ff0000"
-}
+export default React.memo(DetectorModal);
