@@ -10,7 +10,7 @@ Lightweight, dependency-free adblock detector for React. Detects most adblock ex
 
 ## Demo
 
-**[Live demo: try it yourself](https://sureshchand.com.np/projects/chpadblock/react-demo)**
+**[Live demo: try it yourself](https://sureshchand.com.np/projects/chpadblock/docs)**
 
 Open the demo, enable an adblock extension in your browser, then reload the page. The detector modal appears live.
 

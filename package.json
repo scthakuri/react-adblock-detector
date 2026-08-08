@@ -1,6 +1,6 @@
 {
     "name": "@scthakuri/adblock-detector",
-    "version": "1.0.9",
+    "version": "1.0.10",
     "description": "Lightweight, dependency-free adblock detector for React. Detects most adblock extensions and ships a ready-made modal, a React hook, and a zero-config auto-detecting component.",
     "main": "lib/index.js",
     "types": "lib/index.d.ts",
